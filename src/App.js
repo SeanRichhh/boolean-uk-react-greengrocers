@@ -30,7 +30,6 @@ export default function App() {
   const addToCart = item => {
     const vegInCart = cart.find(vegItem => vegItem.item.id === item.id)
     if (vegInCart) {
-      vegInCart.quantity++
       setCart([...cart])
     } else {
       const cart = { item: item, quantity: 1 }
@@ -38,19 +37,25 @@ export default function App() {
     }
   }
   const increaseBtn = (itemId) => {
-    const updatedQuantity = cart.map(item => item.id === itemId.id ? { ...item, quantity: item.quantity + 1 } : item)
+    let updatedQuantity = cart.map(item => item.id === itemId.id ? { ...item, quantity: item.quantity + 1 } : item)
     setCart(updatedQuantity)
   };
 
   const decreaseBtn = (itemId) => {
     if (itemId.quantity === 1) {
-      const updatedQuantity = cart.filter(item => item.id !== itemId.id)
+      let updatedQuantity = cart.filter(item => item.id !== itemId.id)
       setCart(updatedQuantity)
     } else {
-      const updatedQuantity = cart.map(item => item.id === itemId.id ? { ...item, quantity: item.quantity - 1 } : item)
+      let updatedQuantity = cart.map(item => item.id === itemId.id ? { ...item, quantity: item.quantity - 1 } : item)
       setCart(updatedQuantity)
     }
   }
+  
+  const total = cart.reduce(
+    (sum, cartItem) => (sum += cartItem.item.price * cartItem.quantity),
+    0
+  )
+
  
 
   return (
@@ -94,7 +99,7 @@ export default function App() {
             <h3>Total</h3>
           </div>
           <div>
-            <span className="total-number">£0.00</span>
+            <span className="total-number">£{total.toFixed(2)}</span>
           </div>
         </div>
       </main>
