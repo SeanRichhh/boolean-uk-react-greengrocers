@@ -25,6 +25,8 @@ export default function App() {
   const [store, setStore] = useState(initialStoreItems)
   const [cart, setCart] = useState([])
   
+  
+  
   const addToCart = item => {
     const vegInCart = cart.find(vegItem => vegItem.item.id === item.id)
     if (vegInCart) {
@@ -35,12 +37,21 @@ export default function App() {
       setCart(cartItems => [...cartItems, cart])
     }
   }
-function increaseBtn(){
-}
+  const increaseBtn = (itemId) => {
+    const updatedQuantity = cart.map(item => item.id === itemId.id ? { ...item, quantity: item.quantity + 1 } : item)
+    setCart(updatedQuantity)
+  };
 
-function decreaseBtn(){
-  
-}
+  const decreaseBtn = (itemId) => {
+    if (itemId.quantity === 1) {
+      const updatedQuantity = cart.filter(item => item.id !== itemId.id)
+      setCart(updatedQuantity)
+    } else {
+      const updatedQuantity = cart.map(item => item.id === itemId.id ? { ...item, quantity: item.quantity - 1 } : item)
+      setCart(updatedQuantity)
+    }
+  }
+ 
 
   return (
     <>

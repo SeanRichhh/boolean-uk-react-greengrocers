@@ -1,4 +1,4 @@
-function Cart({ cartItem, increaseBtn, decreaceBtn }) {
+function Cart({ cartItem, increaseBtn, decreaseBtn }) {
   return (
     <li>
       <img
@@ -10,7 +10,7 @@ function Cart({ cartItem, increaseBtn, decreaceBtn }) {
       <button
         className="quantity-btn remove-btn center"
         onClick={() => {
-            decreaceBtn(cartItem)
+          decreaseBtn(cartItem)
         }}
       >
         -
